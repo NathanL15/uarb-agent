@@ -11,6 +11,7 @@ from __future__ import annotations
 import base64
 import logging
 import mimetypes
+import re
 from datetime import datetime, timezone
 
 import httpx
@@ -65,10 +66,29 @@ class AgentMailTransport(Transport):
                 continue
             if not old_enough(received, self.min_age_s):
                 continue
-            body = m.get("extracted_text") or m.get("text") or m.get("preview") or ""
+            body = self._body(m)
             out.append(InboundMessage(id=mid, sender=sender, subject=m.get("subject") or "", body=body, received=received, thread_id=m.get("thread_id", "")))
         out.sort(key=lambda m: m.received)
         return out
+
+    def _body(self, m: dict) -> str:
+        """The list endpoint only carries a preview; fetch the message for its full text."""
+        text = m.get("extracted_text") or m.get("text")
+        if text:
+            return text
+        mid = m.get("message_id") or m.get("id")
+        r = self.client.get(f"/inboxes/{self.inbox_id}/messages/{mid}")
+        if r.status_code < 400:
+            full = r.json()
+            text = full.get("extracted_text") or full.get("text")
+            if text:
+                return text
+            html = full.get("html")
+            if html:
+                return re.sub(r"<[^>]+>", " ", html)
+        else:
+            log.warning("could not fetch %s: %s %s", mid, r.status_code, r.text[:200])
+        return m.get("preview") or ""
 
     def mark_processed_id(self, mid: str) -> None:
         r = self.client.patch(f"/inboxes/{self.inbox_id}/messages/{mid}", json={"add_labels": [DONE_LABEL]})
