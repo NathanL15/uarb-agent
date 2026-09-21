@@ -1,0 +1,11 @@
+notes/
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+runs/
+*.zip
+*.log
+.playwright/

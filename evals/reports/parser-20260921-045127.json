@@ -1,0 +1,749 @@
+{
+ "rules": [
+  {
+   "id": "brief-example",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Other Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "plain",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "subject-only",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12383",
+    "doc_types": [
+     "Key Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "lowercase",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Transcripts"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "spaced-m",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M10431",
+    "doc_types": [
+     "Recordings"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "hyphen-m",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Other Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "matter-word",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "hash",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Key Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "audio",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M10431",
+    "doc_types": [
+     "Recordings"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "mp3",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M10431",
+    "doc_types": [
+     "Recordings"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "decisions",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M11911",
+    "doc_types": [
+     "Key Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "correspondence",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Other Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "evidence",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M10431",
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "two-types",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Exhibits",
+     "Transcripts"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "polite-long",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12383",
+    "doc_types": [
+     "Key Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "limit-3",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "ok",
+    "limit": 3,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "limit-cap",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Other Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "quoted-reply",
+   "pass": false,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": false,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Exhibits",
+     "Transcripts"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "signature-noise",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "html-ish",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Other Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "no-matter",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": null,
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "no_matter",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "no-type",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [],
+    "status": "no_doc_type",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "two-matters",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "ambiguous_matter",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "four-digit-not-matter",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": null,
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "no_matter",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "six-digit-not-matter",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": null,
+    "doc_types": [
+     "Exhibits"
+    ],
+    "status": "no_matter",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "generic-documents",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [],
+    "status": "no_doc_type",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "hearing-text-llm",
+   "pass": false,
+   "checks": {
+    "status": false,
+    "matter": true,
+    "doc_types": false,
+    "limit": true
+   },
+   "got": {
+    "matter": "M10431",
+    "doc_types": [],
+    "status": "no_doc_type",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": true
+  },
+  {
+   "id": "listen-llm",
+   "pass": false,
+   "checks": {
+    "status": false,
+    "matter": true,
+    "doc_types": false,
+    "limit": true
+   },
+   "got": {
+    "matter": "M10431",
+    "doc_types": [],
+    "status": "no_doc_type",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": true
+  },
+  {
+   "id": "ruling-llm",
+   "pass": false,
+   "checks": {
+    "status": false,
+    "matter": true,
+    "doc_types": false,
+    "limit": true
+   },
+   "got": {
+    "matter": "M11911",
+    "doc_types": [],
+    "status": "no_doc_type",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": true
+  },
+  {
+   "id": "letters-llm",
+   "pass": false,
+   "checks": {
+    "status": false,
+    "matter": true,
+    "doc_types": false,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [],
+    "status": "no_doc_type",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": true
+  },
+  {
+   "id": "french-ish",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Transcripts"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "typo-exibits",
+   "pass": false,
+   "checks": {
+    "status": false,
+    "matter": true,
+    "doc_types": false,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [],
+    "status": "no_doc_type",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": true
+  },
+  {
+   "id": "key-doc-singular",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12383",
+    "doc_types": [
+     "Key Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "other-files",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Other Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "exhibit-in-matter-name",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Transcripts",
+     "Exhibits"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  },
+  {
+   "id": "shouting",
+   "pass": true,
+   "checks": {
+    "status": true,
+    "matter": true,
+    "doc_types": true,
+    "limit": true
+   },
+   "got": {
+    "matter": "M12205",
+    "doc_types": [
+     "Key Documents"
+    ],
+    "status": "ok",
+    "limit": 10,
+    "source": "rules"
+   },
+   "seconds": 0.0,
+   "needs_llm": false
+  }
+ ]
+}

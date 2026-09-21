@@ -1,0 +1,28 @@
+[project]
+name = "uarb-agent"
+version = "0.1.0"
+description = "Email-driven agent that pulls filings from the Nova Scotia UARB public documents database"
+requires-python = ">=3.11"
+dependencies = [
+    "playwright>=1.45",
+    "pydantic>=2.6",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-asyncio>=0.23"]
+
+[project.scripts]
+uarb-agent = "uarb_agent.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["uarb_agent"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
