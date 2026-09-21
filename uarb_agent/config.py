@@ -10,12 +10,14 @@ load_dotenv()
 
 
 def _env(name: str, default: str = "") -> str:
-    return os.environ.get(name, default)
+    # An empty value (an unset CI secret, a blank .env line) means "use the default".
+    value = os.environ.get(name, "")
+    return value if value.strip() else default
 
 
 def _int(name: str, default: int) -> int:
     try:
-        return int(os.environ.get(name, default))
+        return int(_env(name, str(default)))
     except ValueError:
         return default
 
@@ -26,7 +28,7 @@ class Settings:
     data_dir: Path = Path(_env("UARB_DATA_DIR", "data"))
     max_docs: int = _int("UARB_MAX_DOCS", 10)
     # Attachment ceiling per email, in MB. Gmail accepts 25; keep headroom for base64 overhead.
-    attachment_budget_mb: float = float(_env("UARB_ATTACHMENT_MB", "18"))
+    attachment_budget_mb: float = float(_env("UARB_ATTACHMENT_MB", "18") or 18)
     # Stop downloading once this much has been pulled for one request (audio can run to hundreds of MB).
     max_total_mb: float = float(_env("UARB_MAX_TOTAL_MB", "200"))
     headless: bool = _env("UARB_HEADLESS", "1") != "0"
