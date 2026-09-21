@@ -59,9 +59,38 @@ def cmd_ask(args):
 def cmd_run(args):
     from .agent import Agent
 
-    transport = build_transport(settings)
+    transport = build_transport(settings, min_age_s=args.min_age)
     agent = Agent(settings, transport, llm=_llm())
-    asyncio.run(agent.run_forever(stop_after=args.stop_after))
+    if args.once:
+        n = asyncio.run(agent.run_once())
+        print(f"handled {n} request(s)")
+        return
+    code = asyncio.run(agent.run_forever(stop_after=args.stop_after))
+    sys.exit(code)
+
+
+def cmd_pending(args):
+    """Exit 0 if there is mail waiting, 1 if not. Cheap enough for a cron job to gate on."""
+    transport = build_transport(settings, min_age_s=args.min_age)
+    pending = transport.fetch_unprocessed()
+    for m in pending:
+        print(f"{m.received:%Y-%m-%d %H:%M} {m.sender} {m.subject!r}")
+    print(f"{len(pending)} pending")
+    sys.exit(0 if pending else 1)
+
+
+def cmd_status(args):
+    import time
+    from datetime import datetime, timezone
+
+    p = settings.data_dir / "heartbeat.json"
+    if not p.exists():
+        print("no heartbeat yet")
+        sys.exit(2)
+    hb = json.loads(p.read_text())
+    age = (datetime.now(timezone.utc) - datetime.fromisoformat(hb["t"])).total_seconds()
+    print(f"{hb['state']} on {hb.get('address')} via {hb.get('transport')}; handled {hb['handled']}, failures {hb['failures']}; heartbeat {age:.0f}s ago (pid {hb.get('pid')})")
+    sys.exit(0 if age < max(120, settings.poll_seconds * 4) else 1)
 
 
 def cmd_parse(args):
@@ -91,7 +120,16 @@ def main(argv=None):
 
     p = sub.add_parser("run", help="poll the configured mailbox and answer requests")
     p.add_argument("--stop-after", type=int, default=None)
+    p.add_argument("--once", action="store_true", help="handle what is waiting, then exit")
+    p.add_argument("--min-age", type=int, default=0, help="backup mode: only take mail at least this many seconds old")
     p.set_defaults(fn=cmd_run)
+
+    p = sub.add_parser("pending", help="list unanswered requests; exit 1 if none")
+    p.add_argument("--min-age", type=int, default=0)
+    p.set_defaults(fn=cmd_pending)
+
+    p = sub.add_parser("status", help="show the running agent's heartbeat")
+    p.set_defaults(fn=cmd_status)
 
     p = sub.add_parser("parse", help="show how a request would be interpreted")
     p.add_argument("text")

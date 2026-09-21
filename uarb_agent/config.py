@@ -45,6 +45,10 @@ class Settings:
     mail_user: str = _env("MAIL_USER", "")
     mail_password: str = _env("MAIL_PASSWORD", "")
     allowed_senders: list[str] = field(default_factory=lambda: [s.strip().lower() for s in _env("MAIL_ALLOWED_SENDERS", "").split(",") if s.strip()])
+    mail_done_folder: str = _env("MAIL_DONE_FOLDER", "UARB-Agent-Done")
+    max_replies_per_sender_hour: int = _int("MAIL_MAX_PER_SENDER_HOUR", 10)
+    max_replies_per_hour: int = _int("MAIL_MAX_PER_HOUR", 60)
+    keep_awake: bool = _env("UARB_KEEP_AWAKE", "1") != "0"
 
     agentmail_api_key: str = _env("AGENTMAIL_API_KEY", "")
     agentmail_inbox_id: str = _env("AGENTMAIL_INBOX_ID", "")

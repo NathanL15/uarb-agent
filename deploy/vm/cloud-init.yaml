@@ -1,0 +1,34 @@
+#cloud-config
+# Works as the startup script for a GCP e2-micro / Oracle always-free VM (Ubuntu 22.04+).
+# Before use: paste the contents of your .env into /opt/uarb-agent/.env below.
+package_update: true
+packages: [docker.io, git]
+write_files:
+  - path: /opt/uarb-agent/.env
+    permissions: "0600"
+    content: |
+      MAIL_TRANSPORT=imap
+      MAIL_ADDRESS=
+      MAIL_USER=
+      MAIL_PASSWORD=
+      UARB_ATTACHMENT_MB=18
+  - path: /etc/systemd/system/uarb-agent.service
+    content: |
+      [Unit]
+      Description=UARB email agent
+      After=docker.service
+      Requires=docker.service
+      [Service]
+      Restart=always
+      RestartSec=15
+      ExecStartPre=-/usr/bin/docker rm -f uarb-agent
+      ExecStart=/usr/bin/docker run --name uarb-agent --env-file /opt/uarb-agent/.env -v /opt/uarb-agent/data:/data --shm-size=512m uarb-agent
+      ExecStop=/usr/bin/docker stop uarb-agent
+      [Install]
+      WantedBy=multi-user.target
+runcmd:
+  - systemctl enable --now docker
+  - git clone https://github.com/NathanL15/uarb-agent /opt/uarb-agent/src || true
+  - docker build -t uarb-agent /opt/uarb-agent/src
+  - systemctl daemon-reload
+  - systemctl enable --now uarb-agent

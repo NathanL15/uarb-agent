@@ -11,3 +11,4 @@ runs/
 .playwright/
 evals/work/
 *.egg-info/
+logs/

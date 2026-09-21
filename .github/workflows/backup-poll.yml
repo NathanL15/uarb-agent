@@ -1,0 +1,56 @@
+name: backup poll
+
+# Off-machine safety net. Every 30 minutes it looks at the inbox and answers
+# anything that has waited more than 3 minutes, which only happens when the
+# primary agent is down. Processed state lives in the mailbox itself, so the
+# two never answer the same request.
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: backup-poll
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      MAIL_TRANSPORT: ${{ secrets.MAIL_TRANSPORT }}
+      MAIL_ADDRESS: ${{ secrets.MAIL_ADDRESS }}
+      MAIL_USER: ${{ secrets.MAIL_USER }}
+      MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+      IMAP_HOST: ${{ secrets.IMAP_HOST }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      AGENTMAIL_API_KEY: ${{ secrets.AGENTMAIL_API_KEY }}
+      AGENTMAIL_INBOX_ID: ${{ secrets.AGENTMAIL_INBOX_ID }}
+      UARB_ATTACHMENT_MB: ${{ secrets.UARB_ATTACHMENT_MB }}
+      UARB_DATA_DIR: /tmp/uarb
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -q .
+      - name: anything waiting?
+        id: pending
+        continue-on-error: true
+        run: uarb-agent pending --min-age 180
+      - name: browser
+        if: steps.pending.outcome == 'success'
+        run: python -m playwright install --with-deps chromium
+      - name: answer
+        if: steps.pending.outcome == 'success'
+        run: uarb-agent run --once --min-age 180
+      - name: keep the audit trail
+        if: steps.pending.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: runs-${{ github.run_id }}
+          path: /tmp/uarb/runs
+          if-no-files-found: ignore
+          retention-days: 30

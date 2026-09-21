@@ -104,6 +104,16 @@ field mapping. Two further cases check that an unknown matter gets a "not found"
 reply and that the brief's example request produces a reply whose counts, title,
 "downloaded X out of Y" and ZIP contents all agree.
 
+## Keeping it running
+
+`deploy/README.md` covers the three layers: the process heals itself (browser
+recycling, send retries, heartbeat, keep-awake, restart on `.env` change), a
+Windows Scheduled Task or a systemd unit on a VM restarts it after any crash or
+reboot, and a GitHub Actions cron answers anything the primary has left waiting
+for more than three minutes. Handled mail is marked in the mailbox itself, so
+the workers never answer the same request twice. `uarb-agent status` shows the
+heartbeat; `uarb-agent pending` shows what is waiting.
+
 ## Limits worth knowing
 
 - One request is handled at a time; the WebDirect server does not like parallel sessions from one client.
