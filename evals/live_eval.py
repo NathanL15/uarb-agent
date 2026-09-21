@@ -64,7 +64,7 @@ async def run_case(client: UarbClient, case, settings: Settings, work: Path) -> 
     cid, matter, tab, limit, pinned, tags = case
     chk = Check()
     t0 = time.perf_counter()
-    result = await client.fetch(matter, tab, limit=limit or 1, max_total_bytes=settings.max_total_bytes)
+    result = await client.fetch(matter, tab, limit=limit or 1, max_total_bytes=settings.max_total_bytes, max_file_bytes=settings.attachment_budget_bytes)
     if limit == 0:
         result.downloaded = []
     meta = result.metadata
@@ -89,7 +89,7 @@ async def run_case(client: UarbClient, case, settings: Settings, work: Path) -> 
 
     if limit:
         expected_dl = min(limit, n_tab)
-        skipped_budget = [s for s in result.skipped if "budget" in s]
+        skipped_budget = [s for s in result.skipped if "budget" in s or "cannot be emailed" in s]
         chk("downloaded min(limit, count)", len(result.downloaded) + len(skipped_budget) == expected_dl or len(result.downloaded) == expected_dl, f"downloaded {len(result.downloaded)} of expected {expected_dl}; skipped {result.skipped}")
         chk("downloaded ids are the first listed", [f.row.doc_id for f in result.downloaded] == [r.doc_id for r in result.listed[: len(result.downloaded)]] or bool(result.skipped), "")
         for f in result.downloaded:

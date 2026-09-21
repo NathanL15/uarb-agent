@@ -57,7 +57,7 @@ class Agent:
         else:
             for doc_type in req.doc_types:
                 try:
-                    result = await client.fetch(req.matter, doc_type, limit=req.limit, max_total_bytes=self.s.max_total_bytes, on_progress=step)
+                    result = await client.fetch(req.matter, doc_type, limit=req.limit, max_total_bytes=self.s.max_total_bytes, max_file_bytes=self.s.attachment_budget_bytes, on_progress=step)
                 except MatterNotFound:
                     subject, body = compose_not_found(req.matter)
                     replies.append(OutboundMessage(to=msg.sender, subject=subject, body=body, in_reply_to=msg.message_id_header or msg.id, thread_id=msg.thread_id))

@@ -22,7 +22,7 @@ class FakeClient:
         self.fail = fail
         self.calls = []
 
-    async def fetch(self, matter, doc_type, limit=10, max_total_bytes=None, on_progress=None):
+    async def fetch(self, matter, doc_type, limit=10, max_total_bytes=None, max_file_bytes=None, on_progress=None):
         self.calls.append((matter, doc_type, limit))
         if self.fail:
             raise self.fail

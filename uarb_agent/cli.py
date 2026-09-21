@@ -29,7 +29,7 @@ def cmd_fetch(args):
     from .uarb import fetch_once
 
     doc_type = DocType(args.doc_type)
-    result = asyncio.run(fetch_once(settings.uarb_url, settings.data_dir / "downloads", args.matter, doc_type, limit=args.limit, headless=settings.headless, max_total_bytes=settings.max_total_bytes))
+    result = asyncio.run(fetch_once(settings.uarb_url, settings.data_dir / "downloads", args.matter, doc_type, limit=args.limit, headless=settings.headless, max_total_bytes=settings.max_total_bytes, max_file_bytes=settings.attachment_budget_bytes))
     out = settings.data_dir / "zips"
     z = bundle(result.downloaded, out, f"{args.matter} {doc_type.value}", budget_bytes=settings.attachment_budget_bytes)
     print(json.dumps(result.metadata.model_dump(mode="json"), indent=2, default=str))

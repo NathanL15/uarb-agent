@@ -12,10 +12,12 @@ import asyncio
 import logging
 import re
 import time
+from urllib.parse import unquote
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Optional
 
+import httpx
 from playwright.async_api import Browser, BrowserContext, Page, Playwright, TimeoutError as PWTimeout, async_playwright
 
 from .models import DocType, DocumentRow, DownloadedFile, FetchResult, MatterMetadata, MatterNotFound
@@ -101,12 +103,7 @@ COUNTS_JS = r"""() => {
 # caller can classify cells by shape and column. `index` is the row's absolute
 # position in the grid (pixel offset / row height), which survives scrolling.
 ROWS_JS = r"""() => {
-  const scroller = document.querySelector('.v-grid-scroller-vertical');
-  const body = document.querySelector('.v-grid-body');
-  const top = scroller ? scroller.scrollTop : 0;
-  const bodyTop = body ? body.getBoundingClientRect().top : 0;
   const trs = [...document.querySelectorAll('.v-grid-row')];
-  const h = trs.length ? trs[0].getBoundingClientRect().height || 68 : 68;
   return trs.map(tr => {
     const cells = [];
     for (const e of tr.querySelectorAll('*')) {
@@ -116,8 +113,11 @@ ROWS_JS = r"""() => {
       const r = e.getBoundingClientRect();
       cells.push({t, x: Math.round(r.left)});
     }
-    const index = Math.round((tr.getBoundingClientRect().top - bodyTop + top) / h);
-    return {index, cells};
+    // Vaadin's escalator positions each row with translate3d(0, <absolute px>, 0)
+    const m = (tr.style.transform || '').match(/translate3d\(\s*[-\d.]+px,\s*([-\d.]+)px/);
+    const y = m ? parseFloat(m[1]) : tr.getBoundingClientRect().top;
+    const h = tr.getBoundingClientRect().height || 68;
+    return {index: Math.round(y / h), cells};
   });
 }"""
 
@@ -181,6 +181,13 @@ def classify_row(cells: list[dict], ordinal: int | None = None) -> Optional[Docu
 def row_is_loaded(cells: list[dict]) -> bool:
     return any(c["t"].upper() == "GO GET IT" for c in cells)
 
+
+
+class FileTooLarge(Exception):
+    def __init__(self, name: str, size: int):
+        super().__init__(f"{name} is {size} bytes")
+        self.name = name
+        self.size = size
 
 
 class UarbClient:
@@ -367,7 +374,7 @@ class UarbClient:
             await page.wait_for_timeout(250)
         raise RuntimeError(f"row {row.doc_id} (index {target}) could not be brought into view")
 
-    async def download_row(self, page: Page, row: DocumentRow, dest_dir: Path) -> list[DownloadedFile]:
+    async def download_row(self, page: Page, row: DocumentRow, dest_dir: Path, remaining_bytes: int | None = None) -> list[DownloadedFile]:
         dest_dir.mkdir(parents=True, exist_ok=True)
         pos = await self._bring_row_into_view(page, row)
         tr = page.locator(".v-grid-row").nth(pos)
@@ -376,19 +383,15 @@ class UarbClient:
             raise RuntimeError(f"row at index {row.grid_index} shows {shown[:80]!r}, expected {row.title[:40]!r}")
         button = tr.get_by_text(re.compile(r"^GO GET IT$", re.I)).filter(visible=True).first
         await button.click()
-        dialog = page.locator(".v-window", has_text="Download Files")
-        await dialog.wait_for(timeout=30000)
+        dialog = await self._download_dialog(page)
         file_buttons = dialog.locator(".fm-download-button")
         names = [n.strip() for n in await file_buttons.all_inner_texts()]
         out: list[DownloadedFile] = []
         try:
             for i, served in enumerate(names):
-                async with page.expect_download(timeout=self.download_timeout) as dl_info:
-                    await file_buttons.nth(i).click()
-                dl = await dl_info.value
-                target = dest_dir / _unique(dest_dir, dl.suggested_filename or served or f"{row.doc_id}")
-                await dl.save_as(target)
-                size = target.stat().st_size
+                url = await self._start_download(page, file_buttons.nth(i))
+                target = dest_dir / _unique(dest_dir, served or f"{row.doc_id}")
+                size = await self._stream(page, url, target, remaining_bytes, served or target.name)
                 if size == 0:
                     target.unlink(missing_ok=True)
                     raise RuntimeError(f"{served} downloaded as an empty file")
@@ -403,7 +406,72 @@ class UarbClient:
                     pass
         return out
 
-    async def fetch(self, matter: str, doc_type: DocType, limit: int = 10, max_total_bytes: int | None = None, on_progress=None) -> FetchResult:
+    async def _start_download(self, page: Page, button) -> str:
+        """Click a file button and return the connector URL it targets.
+
+        Chromium sometimes treats the click as a navigation and waits for the
+        server before raising a download event; the request itself is visible at
+        once, so the URL is taken from there and the browser's own download is
+        cancelled in favour of a streamed fetch with a size cap.
+        """
+        loop = asyncio.get_running_loop()
+        got: asyncio.Future = loop.create_future()
+
+        def on_request(req):
+            if "/dl/" in req.url and not got.done():
+                got.set_result(req.url)
+
+        def on_download(dl):
+            if not got.done():
+                got.set_result(dl.url)
+            asyncio.ensure_future(dl.cancel())
+
+        page.on("request", on_request)
+        page.on("download", on_download)
+        try:
+            await button.click()
+            return await asyncio.wait_for(got, timeout=30)
+        finally:
+            page.remove_listener("request", on_request)
+            page.remove_listener("download", on_download)
+
+    async def _stream(self, page: Page, url: str, target: Path, cap: int | None, name: str) -> int:
+        cookies = {c["name"]: c["value"] for c in await page.context.cookies()}
+        t0 = time.monotonic()
+        written = 0
+        async with httpx.AsyncClient(cookies=cookies, timeout=httpx.Timeout(self.download_timeout / 1000, connect=30)) as client:
+            async with client.stream("GET", url) as r:
+                if r.status_code != 200:
+                    raise RuntimeError(f"{url.rsplit('/', 1)[-1]} returned HTTP {r.status_code}")
+                log.debug("first byte after %.1fs for %s", time.monotonic() - t0, target.name)
+                with open(target, "wb") as fh:
+                    async for chunk in r.aiter_bytes(256 * 1024):
+                        written += len(chunk)
+                        if cap is not None and written > cap:
+                            fh.close()
+                            target.unlink(missing_ok=True)
+                            raise FileTooLarge(name, written)
+                        fh.write(chunk)
+        return written
+
+    async def _download_dialog(self, page: Page):
+        """GO GET IT opens "Download Files" directly for documents. For transcripts
+        and recordings FileMaker first asks for a filename ("Export Field to File",
+        prefilled); accepting it leads to the same "Download Files" window."""
+        window = page.locator(".v-window")
+        deadline = time.monotonic() + 30
+        while time.monotonic() < deadline:
+            texts = await page.evaluate("() => [...document.querySelectorAll('.v-window')].map(w => w.innerText)")
+            if any("Download Files" in t for t in texts):
+                return page.locator(".v-window", has_text="Download Files")
+            if any("Export Field to File" in t for t in texts):
+                await window.filter(has_text="Export Field to File").get_by_role("button", name="OK").click()
+                await page.wait_for_timeout(300)
+                continue
+            await page.wait_for_timeout(200)
+        raise PWTimeout("no download window appeared after GO GET IT")
+
+    async def fetch(self, matter: str, doc_type: DocType, limit: int = 10, max_total_bytes: int | None = None, max_file_bytes: int | None = None, on_progress=None) -> FetchResult:
         started = datetime.now(timezone.utc)
         ctx, page = await self.new_page()
         try:
@@ -420,11 +488,17 @@ class UarbClient:
             skipped: list[str] = []
             total = 0
             for row in listed[:limit]:
-                if max_total_bytes is not None and total >= max_total_bytes:
-                    skipped.append(f"{row.doc_id} skipped: download budget of {max_total_bytes // 1_048_576} MB reached")
+                remaining = None if max_total_bytes is None else max_total_bytes - total
+                if remaining is not None and remaining <= 0:
+                    skipped.append(f"{row.doc_id} skipped: the {max_total_bytes // 1_048_576} MB download budget for this request is used up")
                     continue
+                cap = min(x for x in (remaining, max_file_bytes) if x is not None) if (remaining is not None or max_file_bytes is not None) else None
                 try:
-                    files = await self.download_row(page, row, self.download_dir / matter / doc_type.value.replace(" ", "_"))
+                    files = await self.download_row(page, row, self.download_dir / matter / doc_type.value.replace(" ", "_"), remaining_bytes=cap)
+                except FileTooLarge as exc:
+                    skipped.append(f"{row.doc_id} ({exc.name}) is larger than {cap // 1_048_576} MB and cannot be emailed; download it from the UARB site")
+                    await self._dismiss_windows(page)
+                    continue
                 except Exception as exc:
                     log.warning("download %s failed: %s", row.doc_id, exc)
                     skipped.append(f"{row.doc_id} could not be downloaded ({type(exc).__name__})")
@@ -438,7 +512,7 @@ class UarbClient:
             await ctx.close()
 
     async def _dismiss_windows(self, page: Page) -> None:
-        for name in ("Close", "OK"):
+        for name in ("Close", "Cancel", "OK"):
             btn = page.locator(".v-window").get_by_role("button", name=name)
             if await btn.count():
                 try:
@@ -464,5 +538,6 @@ def _progress(cb, msg: str) -> None:
 
 
 async def fetch_once(url: str, download_dir: Path, matter: str, doc_type: DocType, limit: int = 10, headless: bool = True, **kw) -> FetchResult:
+    """One-shot helper for scripts and the CLI."""
     async with UarbClient(url, download_dir, headless=headless) as client:
         return await client.fetch(matter, doc_type, limit=limit, **kw)
