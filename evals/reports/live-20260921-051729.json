@@ -1,0 +1,1459 @@
+[
+ {
+  "id": "m12205-other",
+  "matter": "M12205",
+  "tab": "Other Documents",
+  "seconds": 31.0,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M12205"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "Halifax Regional Water Commission - Windsor Street Exchange "
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Water"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Capital Expenditure Approvals"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Open"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2025-04-07"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 13, 'Key Documents': 6, 'Other Documents': 43, 'Transcripts': 0, 'Recordings': 0}"
+   },
+   {
+    "name": "pinned title",
+    "ok": true,
+    "detail": "Halifax Regional Water Commission - Windsor Street Exchange "
+   },
+   {
+    "name": "pinned date_received",
+    "ok": true,
+    "detail": "2025-04-07"
+   },
+   {
+    "name": "pinned type",
+    "ok": true,
+    "detail": "Water"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 43 vs tab 43"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have filing dates",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 10 of expected 10; skipped []"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102674 non-empty",
+    "ok": true,
+    "detail": "170571 bytes"
+   },
+   {
+    "name": "102674 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102674 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102454 non-empty",
+    "ok": true,
+    "detail": "166431 bytes"
+   },
+   {
+    "name": "102454 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102454 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102417 non-empty",
+    "ok": true,
+    "detail": "149993 bytes"
+   },
+   {
+    "name": "102417 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102417 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102329 non-empty",
+    "ok": true,
+    "detail": "357757 bytes"
+   },
+   {
+    "name": "102329 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102329 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102330 non-empty",
+    "ok": true,
+    "detail": "357757 bytes"
+   },
+   {
+    "name": "102330 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102330 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102293 non-empty",
+    "ok": true,
+    "detail": "281226 bytes"
+   },
+   {
+    "name": "102293 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102293 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102295 non-empty",
+    "ok": true,
+    "detail": "707388 bytes"
+   },
+   {
+    "name": "102295 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102295 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102266 non-empty",
+    "ok": true,
+    "detail": "284667 bytes"
+   },
+   {
+    "name": "102266 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102266 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102197 non-empty",
+    "ok": true,
+    "detail": "4083574 bytes"
+   },
+   {
+    "name": "102197 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102197 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102202 non-empty",
+    "ok": true,
+    "detail": "4083574 bytes"
+   },
+   {
+    "name": "102202 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102202 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "M12205 Other Documents.zip opens and is complete",
+    "ok": true,
+    "detail": "10 members, 9.9 MB"
+   },
+   {
+    "name": "M12205 Other Documents.zip under budget",
+    "ok": true,
+    "detail": "9.9 MB"
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 13,
+   "Key Documents": 6,
+   "Other Documents": 43,
+   "Transcripts": 0,
+   "Recordings": 0
+  },
+  "listed": 43,
+  "downloaded": 10,
+  "bytes": 10642938
+ },
+ {
+  "id": "m12205-key",
+  "matter": "M12205",
+  "tab": "Key Documents",
+  "seconds": 14.5,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M12205"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "Halifax Regional Water Commission - Windsor Street Exchange "
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Water"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Capital Expenditure Approvals"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Open"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2025-04-07"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 13, 'Key Documents': 6, 'Other Documents': 43, 'Transcripts': 0, 'Recordings': 0}"
+   },
+   {
+    "name": "pinned title",
+    "ok": true,
+    "detail": "Halifax Regional Water Commission - Windsor Street Exchange "
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 6 vs tab 6"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have filing dates",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 6 of expected 6; skipped []"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "97289 non-empty",
+    "ok": true,
+    "detail": "119742 bytes"
+   },
+   {
+    "name": "97289 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "97289 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "97291 non-empty",
+    "ok": true,
+    "detail": "198023 bytes"
+   },
+   {
+    "name": "97291 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "97291 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "97354 non-empty",
+    "ok": true,
+    "detail": "37977 bytes"
+   },
+   {
+    "name": "97354 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "97354 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "98406 non-empty",
+    "ok": true,
+    "detail": "190653 bytes"
+   },
+   {
+    "name": "98406 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "98406 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "99761 non-empty",
+    "ok": true,
+    "detail": "353429 bytes"
+   },
+   {
+    "name": "99761 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "99761 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "102674 non-empty",
+    "ok": true,
+    "detail": "170571 bytes"
+   },
+   {
+    "name": "102674 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "102674 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "M12205 Key Documents.zip opens and is complete",
+    "ok": true,
+    "detail": "6 members, 0.9 MB"
+   },
+   {
+    "name": "M12205 Key Documents.zip under budget",
+    "ok": true,
+    "detail": "0.9 MB"
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 13,
+   "Key Documents": 6,
+   "Other Documents": 43,
+   "Transcripts": 0,
+   "Recordings": 0
+  },
+  "listed": 6,
+  "downloaded": 6,
+  "bytes": 1070395
+ },
+ {
+  "id": "m12205-exhibits-3",
+  "matter": "M12205",
+  "tab": "Exhibits",
+  "seconds": 41.5,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M12205"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "Halifax Regional Water Commission - Windsor Street Exchange "
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Water"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Capital Expenditure Approvals"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Open"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2025-04-07"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 13, 'Key Documents': 6, 'Other Documents': 43, 'Transcripts': 0, 'Recordings': 0}"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 13 vs tab 13"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have filing dates",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 1 of expected 3; skipped ['H-1 (H-1.pdf) is larger than 18 MB and cannot be emailed; download it from the UARB site', 'H-3 (H-3.pdf) is larger than 18 MB and cannot be emailed; download it from the UARB site']"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "H-2 non-empty",
+    "ok": true,
+    "detail": "138372 bytes"
+   },
+   {
+    "name": "H-2 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "H-2 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "M12205 Exhibits.zip opens and is complete",
+    "ok": true,
+    "detail": "1 members, 0.1 MB"
+   },
+   {
+    "name": "M12205 Exhibits.zip under budget",
+    "ok": true,
+    "detail": "0.1 MB"
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 13,
+   "Key Documents": 6,
+   "Other Documents": 43,
+   "Transcripts": 0,
+   "Recordings": 0
+  },
+  "listed": 13,
+  "downloaded": 1,
+  "bytes": 138372
+ },
+ {
+  "id": "m12205-transcripts-empty",
+  "matter": "M12205",
+  "tab": "Transcripts",
+  "seconds": 6.5,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M12205"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "Halifax Regional Water Commission - Windsor Street Exchange "
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Water"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Capital Expenditure Approvals"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Open"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2025-04-07"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 13, 'Key Documents': 6, 'Other Documents': 43, 'Transcripts': 0, 'Recordings': 0}"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 0 vs tab 0"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 0 of expected 0; skipped []"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 13,
+   "Key Documents": 6,
+   "Other Documents": 43,
+   "Transcripts": 0,
+   "Recordings": 0
+  },
+  "listed": 0,
+  "downloaded": 0,
+  "bytes": 0
+ },
+ {
+  "id": "m12383-other",
+  "matter": "M12383",
+  "tab": "Other Documents",
+  "seconds": 28.3,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M12383"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "Municipal Boundary - Town of Amherst - 2025 Application for "
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Municipal Boundaries"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Other"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Closed"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2025-07-10"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 6, 'Key Documents': 4, 'Other Documents': 18, 'Transcripts': 0, 'Recordings': 0}"
+   },
+   {
+    "name": "pinned date_received",
+    "ok": true,
+    "detail": "2025-07-10"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 18 vs tab 18"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have filing dates",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 10 of expected 10; skipped []"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "101689 non-empty",
+    "ok": true,
+    "detail": "157042 bytes"
+   },
+   {
+    "name": "101689 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "101689 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "101659 non-empty",
+    "ok": true,
+    "detail": "78766 bytes"
+   },
+   {
+    "name": "101659 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "101659 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "101621 non-empty",
+    "ok": true,
+    "detail": "58672 bytes"
+   },
+   {
+    "name": "101621 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "101621 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "100181 non-empty",
+    "ok": true,
+    "detail": "216521 bytes"
+   },
+   {
+    "name": "100181 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "100181 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "100105 non-empty",
+    "ok": true,
+    "detail": "167594 bytes"
+   },
+   {
+    "name": "100105 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "100105 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "99712 non-empty",
+    "ok": true,
+    "detail": "4680967 bytes"
+   },
+   {
+    "name": "99712 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "99712 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "99588 non-empty",
+    "ok": true,
+    "detail": "256969 bytes"
+   },
+   {
+    "name": "99588 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "99588 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "99390 non-empty",
+    "ok": true,
+    "detail": "1775136 bytes"
+   },
+   {
+    "name": "99390 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "99390 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "99373 non-empty",
+    "ok": true,
+    "detail": "43264 bytes"
+   },
+   {
+    "name": "99373 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "99373 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "99023 non-empty",
+    "ok": true,
+    "detail": "556518 bytes"
+   },
+   {
+    "name": "99023 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "99023 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "M12383 Other Documents.zip opens and is complete",
+    "ok": true,
+    "detail": "10 members, 6.4 MB"
+   },
+   {
+    "name": "M12383 Other Documents.zip under budget",
+    "ok": true,
+    "detail": "6.4 MB"
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 6,
+   "Key Documents": 4,
+   "Other Documents": 18,
+   "Transcripts": 0,
+   "Recordings": 0
+  },
+  "listed": 18,
+  "downloaded": 10,
+  "bytes": 7991449
+ },
+ {
+  "id": "m00001-other",
+  "matter": "M00001",
+  "tab": "Other Documents",
+  "seconds": 9.9,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M00001"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "AS-08-11 - 3173732 Nova Scotia Limited re: 1479 Lower Water "
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Assessment"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Assessment Residential"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Closed"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2008-04-11"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 2, 'Key Documents': 0, 'Other Documents': 2, 'Transcripts': 0, 'Recordings': 0}"
+   },
+   {
+    "name": "pinned date_received",
+    "ok": true,
+    "detail": "2008-04-11"
+   },
+   {
+    "name": "pinned outcome",
+    "ok": true,
+    "detail": "Discontinued"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 2 vs tab 2"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have filing dates",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 2 of expected 2; skipped []"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "67691 non-empty",
+    "ok": true,
+    "detail": "16606 bytes"
+   },
+   {
+    "name": "67691 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "67691 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "82937 non-empty",
+    "ok": true,
+    "detail": "132010 bytes"
+   },
+   {
+    "name": "82937 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "82937 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "M00001 Other Documents.zip opens and is complete",
+    "ok": true,
+    "detail": "2 members, 0.1 MB"
+   },
+   {
+    "name": "M00001 Other Documents.zip under budget",
+    "ok": true,
+    "detail": "0.1 MB"
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 2,
+   "Key Documents": 0,
+   "Other Documents": 2,
+   "Transcripts": 0,
+   "Recordings": 0
+  },
+  "listed": 2,
+  "downloaded": 2,
+  "bytes": 148616
+ },
+ {
+  "id": "m10431-transcripts-2",
+  "matter": "M10431",
+  "tab": "Transcripts",
+  "seconds": 15.2,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M10431"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "P-899 - Nova Scotia Power Inc. - 2022 General Rate Applicati"
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Electricity"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Electricity Rates"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Closed"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2022-01-27"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 304, 'Key Documents': 10, 'Other Documents': 187, 'Transcripts': 10, 'Recordings': 23}"
+   },
+   {
+    "name": "pinned title",
+    "ok": true,
+    "detail": "P-899 - Nova Scotia Power Inc. - 2022 General Rate Applicati"
+   },
+   {
+    "name": "pinned type",
+    "ok": true,
+    "detail": "Electricity"
+   },
+   {
+    "name": "pinned outcome",
+    "ok": true,
+    "detail": "Directions given"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 10 vs tab 10"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 2 of expected 2; skipped []"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "09/12/2022 September 12, 2022 non-empty",
+    "ok": true,
+    "detail": "700735 bytes"
+   },
+   {
+    "name": "09/12/2022 September 12, 2022 looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "09/12/2022 September 12, 2022 not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "09/12/2022 September 12, 2022 Evening Session non-empty",
+    "ok": true,
+    "detail": "271422 bytes"
+   },
+   {
+    "name": "09/12/2022 September 12, 2022 Evening Session looks like .pdf",
+    "ok": true,
+    "detail": "255044462d"
+   },
+   {
+    "name": "09/12/2022 September 12, 2022 Evening Session not an html error page",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "M10431 Transcripts.zip opens and is complete",
+    "ok": true,
+    "detail": "2 members, 0.8 MB"
+   },
+   {
+    "name": "M10431 Transcripts.zip under budget",
+    "ok": true,
+    "detail": "0.8 MB"
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 304,
+   "Key Documents": 10,
+   "Other Documents": 187,
+   "Transcripts": 10,
+   "Recordings": 23
+  },
+  "listed": 10,
+  "downloaded": 2,
+  "bytes": 972157
+ },
+ {
+  "id": "m10431-recordings-1",
+  "matter": "M10431",
+  "tab": "Recordings",
+  "seconds": 20.9,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M10431"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "P-899 - Nova Scotia Power Inc. - 2022 General Rate Applicati"
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Electricity"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Electricity Rates"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Closed"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2022-01-27"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 304, 'Key Documents': 10, 'Other Documents': 187, 'Transcripts': 10, 'Recordings': 23}"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 23 vs tab 23"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded min(limit, count)",
+    "ok": true,
+    "detail": "downloaded 0 of expected 1; skipped ['09/12/2022 M10431 \u2013 NS Power 2022 GRA - Monday (M10431 \u2013 NS Power 2022 GRA - Monday.mp3) is larger than 18 MB and cannot be emailed; download it from the UARB site']"
+   },
+   {
+    "name": "downloaded ids are the first listed",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "every download is in a zip or reported too large",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 304,
+   "Key Documents": 10,
+   "Other Documents": 187,
+   "Transcripts": 10,
+   "Recordings": 23
+  },
+  "listed": 23,
+  "downloaded": 0,
+  "bytes": 0
+ },
+ {
+  "id": "m10431-exhibits-list",
+  "matter": "M10431",
+  "tab": "Exhibits",
+  "seconds": 25.8,
+  "passed": true,
+  "checks": [
+   {
+    "name": "matter echoes request",
+    "ok": true,
+    "detail": "M10431"
+   },
+   {
+    "name": "title present",
+    "ok": true,
+    "detail": "P-899 - Nova Scotia Power Inc. - 2022 General Rate Applicati"
+   },
+   {
+    "name": "type present",
+    "ok": true,
+    "detail": "Electricity"
+   },
+   {
+    "name": "category present",
+    "ok": true,
+    "detail": "Electricity Rates"
+   },
+   {
+    "name": "status present",
+    "ok": true,
+    "detail": "Closed"
+   },
+   {
+    "name": "date received parsed",
+    "ok": true,
+    "detail": "2022-01-27"
+   },
+   {
+    "name": "all five tab counts read",
+    "ok": true,
+    "detail": "{'Exhibits': 304, 'Key Documents': 10, 'Other Documents': 187, 'Transcripts': 10, 'Recordings': 23}"
+   },
+   {
+    "name": "listing count equals tab count",
+    "ok": true,
+    "detail": "listed 304 vs tab 304"
+   },
+   {
+    "name": "listing ids unique",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have titles",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "listing rows have filing dates",
+    "ok": true,
+    "detail": ""
+   }
+  ],
+  "counts": {
+   "Exhibits": 304,
+   "Key Documents": 10,
+   "Other Documents": 187,
+   "Transcripts": 10,
+   "Recordings": 23
+  },
+  "listed": 304,
+  "downloaded": 0,
+  "bytes": 0
+ },
+ {
+  "id": "m99999-not-found",
+  "seconds": 4.4,
+  "passed": true,
+  "checks": [
+   {
+    "name": "M99999 raises MatterNotFound",
+    "ok": true,
+    "detail": "M99999 was not found in the UARB database"
+   }
+  ]
+ },
+ {
+  "id": "repeatability",
+  "seconds": 16.1,
+  "passed": true,
+  "checks": [
+   {
+    "name": "listing identical across runs",
+    "ok": true,
+    "detail": "4 vs 4"
+   },
+   {
+    "name": "metadata identical across runs",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "same first file both times",
+    "ok": true,
+    "detail": ""
+   }
+  ]
+ },
+ {
+  "id": "end-to-end",
+  "seconds": 31.8,
+  "passed": true,
+  "checks": [
+   {
+    "name": "three requests handled",
+    "ok": true,
+    "detail": "3"
+   },
+   {
+    "name": "three replies sent",
+    "ok": true,
+    "detail": "['M12205 Other Documents', 'Which matter and documents?', 'M99999 not found']"
+   },
+   {
+    "name": "reply for the brief example exists",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "reply names the matter title",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "reply states counts per tab",
+    "ok": true,
+    "detail": "Hi,\n\nM12205 is about the Halifax Regional Water Commission - Windsor Street Exchange Redevelopment Project - $69,275,000. It relates to Capital Expenditure Approvals within the Water category. Its sta"
+   },
+   {
+    "name": "reply states the total",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "reply states downloaded X out of Y",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "downloaded is min(10, count)",
+    "ok": true,
+    "detail": "I downloaded 10 out of the 43 Other Documents"
+   },
+   {
+    "name": "one zip attached",
+    "ok": true,
+    "detail": "['C:\\\\Users\\\\Natha\\\\Documents\\\\Applications\\\\Other\\\\Senpilot\\\\evals\\\\work\\\\20260921-051323\\\\e2e\\\\mailbox\\\\outbox\\\\41177fbfeaa7\\\\M12205 Other Documents.zip']"
+   },
+   {
+    "name": "zip member count matches the reply",
+    "ok": true,
+    "detail": "10 members"
+   },
+   {
+    "name": "zip members are listed in the reply body",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "missing matter gets a clarification",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "unknown matter gets a not-found reply",
+    "ok": true,
+    "detail": ""
+   },
+   {
+    "name": "every request left an audit record",
+    "ok": true,
+    "detail": "3"
+   }
+  ]
+ }
+]

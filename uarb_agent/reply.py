@@ -56,7 +56,8 @@ def about_sentences(meta: MatterMetadata) -> list[str]:
     if meta.outcome:
         status_bits.append(f"the outcome was {meta.outcome}")
     if status_bits:
-        out.append((" and ".join(status_bits)).capitalize() + ".")
+        sentence = " and ".join(status_bits)
+        out.append(sentence[0].upper() + sentence[1:] + ".")
     dates = []
     if meta.date_received:
         dates.append(f"an initial filing on {long_date(meta.date_received)}")

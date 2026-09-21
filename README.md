@@ -90,6 +90,10 @@ python -m evals.parser_eval --llm   # 36 phrasings; rules alone vs rules + Ollam
 python -m evals.live_eval           # against the live site; reports land in evals/reports/
 ```
 
+Latest results are in `evals/reports/`: 56 offline tests; parser 31/31 on the cases
+rules should handle and 35/36 with the Ollama fallback; live eval 12/12 cases and
+253/253 checks against the site on 2026-09-21.
+
 The live eval does not hard-code counts, because the database changes as filings
 arrive. Each check compares the agent to the site itself: the number of rows read
 from a tab must equal the count in the tab's label, downloads must equal

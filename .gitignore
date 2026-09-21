@@ -9,3 +9,4 @@ runs/
 *.zip
 *.log
 .playwright/
+evals/work/

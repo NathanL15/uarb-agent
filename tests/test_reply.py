@@ -20,6 +20,7 @@ def test_success_body_has_every_fact(meta, result_factory, tmp_path):
     assert subject == "M12205 Other Documents"
     assert "M12205 is about the Halifax Regional Water Commission" in body
     assert "Capital Expenditure Approvals within the Water category" in body
+    assert "Its status is Open." in body
     assert "initial filing on April 7, 2025" in body
     assert "a decision on October 23, 2025" in body
     assert "I downloaded 3 out of the 43 Other Documents" in body
