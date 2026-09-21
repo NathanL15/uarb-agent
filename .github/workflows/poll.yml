@@ -1,21 +1,23 @@
-name: backup poll
+name: answer mail
 
-# Off-machine safety net. Every 30 minutes it looks at the inbox and answers
-# anything that has waited more than 3 minutes, which only happens when the
-# primary agent is down. Processed state lives in the mailbox itself, so the
-# two never answer the same request.
+# Primary runner. Fires the moment AgentMail's webhook reports a new message
+# (repository_dispatch), and every 30 minutes as a safety net in case a webhook
+# is missed. Handled mail is marked in the mailbox itself, so overlapping runs
+# never answer the same request twice.
 
 on:
+  repository_dispatch:
+    types: [message.received, mail]
   schedule:
     - cron: "*/30 * * * *"
   workflow_dispatch:
 
 concurrency:
-  group: backup-poll
+  group: answer-mail
   cancel-in-progress: false
 
 jobs:
-  poll:
+  answer:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
@@ -39,13 +41,13 @@ jobs:
       - name: anything waiting?
         id: pending
         continue-on-error: true
-        run: uarb-agent pending --min-age 180
+        run: uarb-agent pending
       - name: browser
         if: steps.pending.outcome == 'success'
         run: python -m playwright install --with-deps chromium
       - name: answer
         if: steps.pending.outcome == 'success'
-        run: uarb-agent run --once --min-age 180
+        run: uarb-agent run --once
       - name: keep the audit trail
         if: steps.pending.outcome == 'success'
         uses: actions/upload-artifact@v4
