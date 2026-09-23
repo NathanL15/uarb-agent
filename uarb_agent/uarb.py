@@ -476,6 +476,23 @@ class UarbClient:
         target.write_bytes(body)
         return len(body)
 
+    async def _download_dialog(self, page: Page):
+        """GO GET IT opens "Download Files" directly for documents. For transcripts
+        and recordings FileMaker first asks for a filename ("Export Field to File",
+        prefilled); accepting it leads to the same "Download Files" window."""
+        window = page.locator(".v-window")
+        deadline = time.monotonic() + 30
+        while time.monotonic() < deadline:
+            texts = await page.evaluate("() => [...document.querySelectorAll('.v-window')].map(w => w.innerText)")
+            if any("Download Files" in t for t in texts):
+                return page.locator(".v-window", has_text="Download Files")
+            if any("Export Field to File" in t for t in texts):
+                await window.filter(has_text="Export Field to File").get_by_role("button", name="OK").click()
+                await page.wait_for_timeout(300)
+                continue
+            await page.wait_for_timeout(200)
+        raise PWTimeout("no download window appeared after GO GET IT")
+
     async def fetch(self, matter: str, doc_type: DocType, limit: int = 10, max_total_bytes: int | None = None, max_file_bytes: int | None = None, on_progress=None) -> FetchResult:
         started = datetime.now(timezone.utc)
         ctx, page = await self.new_page()

@@ -60,3 +60,13 @@ def test_recording_row_without_security_or_extension():
     row = classify_row(cells(("09/12/2022", 6), ("M10431 - NS Power 2022 GRA - Monday", 115), ("Preview", 1512), ("GO GET IT", 1408)))
     assert row.doc_id == "09/12/2022 M10431 - NS Power 2022 GRA - Monday"
     assert row.extension == ""
+
+
+def test_client_surface_is_complete():
+    from pathlib import Path
+
+    from uarb_agent.uarb import UarbClient
+
+    c = UarbClient("https://example.invalid", Path("x"))
+    for name in ("open_matter", "read_metadata", "open_tab", "list_documents", "download_row", "_download_dialog", "_start_download", "_stream", "_bring_row_into_view", "fetch"):
+        assert callable(getattr(c, name)), name
