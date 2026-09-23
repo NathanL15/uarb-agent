@@ -12,3 +12,5 @@ runs/
 evals/work/
 *.egg-info/
 logs/
+build/
+dist/

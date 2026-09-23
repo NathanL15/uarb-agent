@@ -436,40 +436,45 @@ class UarbClient:
             page.remove_listener("download", on_download)
 
     async def _stream(self, page: Page, url: str, target: Path, cap: int | None, name: str) -> int:
+        """Fetch the connector URL with the session cookies, enforcing the byte cap
+        while the body streams. Connection trouble is retried, and as a last resort
+        the browser's own network stack (which already holds a connection to the
+        server) fetches the file."""
         cookies = {c["name"]: c["value"] for c in await page.context.cookies()}
-        t0 = time.monotonic()
-        written = 0
-        async with httpx.AsyncClient(cookies=cookies, timeout=httpx.Timeout(self.download_timeout / 1000, connect=30)) as client:
-            async with client.stream("GET", url) as r:
-                if r.status_code != 200:
-                    raise RuntimeError(f"{url.rsplit('/', 1)[-1]} returned HTTP {r.status_code}")
-                log.debug("first byte after %.1fs for %s", time.monotonic() - t0, target.name)
-                with open(target, "wb") as fh:
-                    async for chunk in r.aiter_bytes(256 * 1024):
-                        written += len(chunk)
-                        if cap is not None and written > cap:
-                            fh.close()
-                            target.unlink(missing_ok=True)
-                            raise FileTooLarge(name, written)
-                        fh.write(chunk)
-        return written
-
-    async def _download_dialog(self, page: Page):
-        """GO GET IT opens "Download Files" directly for documents. For transcripts
-        and recordings FileMaker first asks for a filename ("Export Field to File",
-        prefilled); accepting it leads to the same "Download Files" window."""
-        window = page.locator(".v-window")
-        deadline = time.monotonic() + 30
-        while time.monotonic() < deadline:
-            texts = await page.evaluate("() => [...document.querySelectorAll('.v-window')].map(w => w.innerText)")
-            if any("Download Files" in t for t in texts):
-                return page.locator(".v-window", has_text="Download Files")
-            if any("Export Field to File" in t for t in texts):
-                await window.filter(has_text="Export Field to File").get_by_role("button", name="OK").click()
-                await page.wait_for_timeout(300)
-                continue
-            await page.wait_for_timeout(200)
-        raise PWTimeout("no download window appeared after GO GET IT")
+        timeout = httpx.Timeout(self.download_timeout / 1000, connect=30)
+        last: Exception | None = None
+        for attempt in range(3):
+            try:
+                async with httpx.AsyncClient(cookies=cookies, timeout=timeout) as client:
+                    async with client.stream("GET", url) as r:
+                        if r.status_code != 200:
+                            raise RuntimeError(f"{name} returned HTTP {r.status_code}")
+                        written = 0
+                        with open(target, "wb") as fh:
+                            async for chunk in r.aiter_bytes(256 * 1024):
+                                written += len(chunk)
+                                if cap is not None and written > cap:
+                                    fh.close()
+                                    target.unlink(missing_ok=True)
+                                    raise FileTooLarge(name, written)
+                                fh.write(chunk)
+                        return written
+            except (httpx.ConnectError, httpx.ConnectTimeout, httpx.ReadTimeout, httpx.RemoteProtocolError) as exc:
+                last = exc
+                log.warning("stream attempt %d for %s failed: %s", attempt + 1, name, type(exc).__name__)
+                await asyncio.sleep(2 * (attempt + 1))
+        log.info("falling back to the browser's request context for %s", name)
+        try:
+            r = await page.request.get(url, timeout=self.download_timeout)
+        except Exception as exc:
+            raise RuntimeError(f"{name}: {type(last).__name__ if last else 'download'} then {type(exc).__name__}") from exc
+        if r.status != 200:
+            raise RuntimeError(f"{name} returned HTTP {r.status}")
+        body = await r.body()
+        if cap is not None and len(body) > cap:
+            raise FileTooLarge(name, len(body))
+        target.write_bytes(body)
+        return len(body)
 
     async def fetch(self, matter: str, doc_type: DocType, limit: int = 10, max_total_bytes: int | None = None, max_file_bytes: int | None = None, on_progress=None) -> FetchResult:
         started = datetime.now(timezone.utc)
