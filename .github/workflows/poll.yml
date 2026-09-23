@@ -1,15 +1,14 @@
 name: answer mail
 
-# Primary runner. Fires the moment AgentMail's webhook reports a new message
-# (repository_dispatch), and every 30 minutes as a safety net in case a webhook
-# is missed. Handled mail is marked in the mailbox itself, so overlapping runs
-# never answer the same request twice.
+# Primary runner. Polls the inbox every 5 minutes (GitHub's minimum) and can
+# also be started by a repository_dispatch. Handled mail is marked in the
+# mailbox itself, so overlapping runs never answer the same request twice.
 
 on:
   repository_dispatch:
     types: [message.received, mail]
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 concurrency:

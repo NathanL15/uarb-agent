@@ -7,15 +7,14 @@ same inbox without a shared database, and none of them re-answers anything.
 
 ## Primary: GitHub Actions (`.github/workflows/poll.yml`)
 
-- **Instant path.** AgentMail calls GitHub's `repository_dispatch` endpoint the
-  moment a message arrives (`deploy/agentmail_webhook.py` sets that up; it needs
-  the AgentMail API key and a fine-grained GitHub token with Contents write on
-  this repo). The workflow starts within seconds and answers in about two
-  minutes: one minute of runner setup and Playwright install, then the fetch.
-- **Safety net.** The same workflow also runs every 30 minutes, so a missed
-  webhook or an IMAP inbox (which has no webhook) still gets answered. An idle
-  run costs about one billed minute; 48 runs a day is roughly 1,450 minutes a
-  month, inside a private repo's 2,000 free minutes.
+- **Instant path (optional).** GitHub's `repository_dispatch` endpoint rejects
+  AgentMail's webhook body, so a direct hook does not work; `deploy/relay/` has
+  a Cloudflare Worker that forwards a clean dispatch, and
+  `deploy/agentmail_webhook.py` points the inbox at it. With it, replies come
+  in about 90 seconds instead of within the 5-minute schedule.
+- **Schedule.** The workflow runs every 5 minutes, GitHub's minimum. Actions
+  minutes are unlimited on a public repository; on a private one this cadence
+  would exceed the 2,000 free minutes, so use every 30 minutes there.
 - **Secrets.** `gh secret set MAIL_TRANSPORT`, `MAIL_ADDRESS`, and either
   `AGENTMAIL_API_KEY` + `AGENTMAIL_INBOX_ID` or `MAIL_USER` + `MAIL_PASSWORD`
   (+ `IMAP_HOST`, `SMTP_HOST` if not Gmail), plus `UARB_ATTACHMENT_MB` (4 for

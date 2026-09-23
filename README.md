@@ -109,8 +109,7 @@ reply and that the brief's example request produces a reply whose counts, title,
 `deploy/README.md` covers the three layers: the process heals itself (browser
 recycling, send retries, heartbeat, keep-awake, restart on `.env` change), a
 Windows Scheduled Task or a systemd unit on a VM restarts it after any crash or
-reboot, and a GitHub Actions cron answers anything the primary has left waiting
-for more than three minutes. Handled mail is marked in the mailbox itself, so
+reboot, and a GitHub Actions cron polls the inbox every five minutes. Handled mail is marked in the mailbox itself, so
 the workers never answer the same request twice. `uarb-agent status` shows the
 heartbeat; `uarb-agent pending` shows what is waiting.
 
