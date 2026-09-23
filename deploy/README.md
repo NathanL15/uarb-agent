@@ -7,14 +7,17 @@ same inbox without a shared database, and none of them re-answers anything.
 
 ## Primary: GitHub Actions (`.github/workflows/poll.yml`)
 
-- **Instant path (optional).** GitHub's `repository_dispatch` endpoint rejects
-  AgentMail's webhook body, so a direct hook does not work; `deploy/relay/` has
-  a Cloudflare Worker that forwards a clean dispatch, and
-  `deploy/agentmail_webhook.py` points the inbox at it. With it, replies come
-  in about 90 seconds instead of within the 5-minute schedule.
-- **Schedule.** The workflow runs every 5 minutes, GitHub's minimum. Actions
-  minutes are unlimited on a public repository; on a private one this cadence
-  would exceed the 2,000 free minutes, so use every 30 minutes there.
+- **Instant path.** GitHub's `repository_dispatch` endpoint rejects AgentMail's
+  webhook body, so the webhook goes to a Cloudflare Worker (`deploy/relay/`)
+  that forwards a clean dispatch. Setup, once:
+  `cd deploy/relay && npx wrangler login && npx wrangler deploy`, then
+  `npx wrangler secret put GITHUB_TOKEN` and `npx wrangler secret put RELAY_SECRET`,
+  then `python deploy/agentmail_webhook.py <worker url>`. Replies arrive in
+  about 90 seconds.
+- **Schedule.** The workflow also runs on a 5-minute cron as a safety net. GitHub
+  delays scheduled runs heavily on quiet repositories (hours were observed), so
+  the cron is a backstop, not the primary trigger. Actions minutes are unlimited
+  on a public repository.
 - **Secrets.** `gh secret set MAIL_TRANSPORT`, `MAIL_ADDRESS`, and either
   `AGENTMAIL_API_KEY` + `AGENTMAIL_INBOX_ID` or `MAIL_USER` + `MAIL_PASSWORD`
   (+ `IMAP_HOST`, `SMTP_HOST` if not Gmail), plus `UARB_ATTACHMENT_MB` (4 for

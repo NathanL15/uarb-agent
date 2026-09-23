@@ -1,15 +1,14 @@
-"""Point the AgentMail inbox at the GitHub Actions workflow.
+"""Point the AgentMail inbox at the relay in deploy/relay.
 
-AgentMail can attach custom headers to its webhook calls, so it can call
-GitHub's repository_dispatch endpoint directly: a new email becomes a workflow
-run within a minute, with no server in between.
+GitHub's repository_dispatch endpoint rejects AgentMail's webhook body (it has
+keys GitHub does not allow), so the webhook goes to the Cloudflare Worker,
+which forwards a clean dispatch. The shared RELAY_SECRET travels as a header.
 
-    python deploy/agentmail_webhook.py NathanL15/uarb-agent     # reads AGENTMAIL_API_KEY and GITHUB_TOKEN from .env
+    python deploy/agentmail_webhook.py https://uarb-agent-relay.<subdomain>.workers.dev
     python deploy/agentmail_webhook.py --list
     python deploy/agentmail_webhook.py --delete <webhook_id>
 
-The GitHub token needs only "Contents: read and write" on this one repository
-(fine-grained PAT), which is what repository_dispatch requires.
+Reads AGENTMAIL_API_KEY, AGENTMAIL_INBOX_ID and RELAY_SECRET from .env.
 """
 from __future__ import annotations
 
@@ -28,7 +27,7 @@ API = "https://api.agentmail.to/v0"
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("repo", nargs="?", help="owner/name of the GitHub repository")
+    ap.add_argument("url", nargs="?", help="the relay worker's URL")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--delete", metavar="WEBHOOK_ID")
     ap.add_argument("--inbox", default=os.environ.get("AGENTMAIL_INBOX_ID", ""), help="limit to one inbox (default: all inboxes on the account)")
@@ -50,21 +49,17 @@ def main() -> int:
         r.raise_for_status()
         print("deleted", args.delete)
         return 0
-    if not args.repo:
-        ap.error("repo is required unless --list or --delete is given")
-    token = os.environ.get("GITHUB_TOKEN")
-    if not token:
-        print("GITHUB_TOKEN is not set", file=sys.stderr)
+    if not args.url:
+        ap.error("the relay URL is required unless --list or --delete is given")
+    secret = os.environ.get("RELAY_SECRET")
+    if not secret:
+        print("RELAY_SECRET is not set", file=sys.stderr)
         return 2
 
     body = {
-        "url": f"https://api.github.com/repos/{args.repo}/dispatches",
+        "url": args.url,
         "event_types": ["message.received"],
-        "headers": {
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28",
-        },
+        "headers": {"X-Relay-Secret": secret},
     }
     if args.inbox:
         body["inbox_ids"] = [args.inbox]
@@ -74,7 +69,6 @@ def main() -> int:
         return 1
     data = r.json()
     print("webhook created:", data.get("webhook_id") or data.get("id"))
-    print("GitHub receives AgentMail's payload; its top-level event_type is 'message.received', which the workflow listens for.")
     return 0
 
 
