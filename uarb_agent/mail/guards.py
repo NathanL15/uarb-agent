@@ -26,7 +26,8 @@ def looks_automated(sender: str, headers: dict[str, str], subject: str = "") -> 
         return "auto-submitted"
     if lowered.get("precedence") in ("bulk", "list", "junk"):
         return f"precedence {lowered['precedence']}"
-    for h in ("x-autoreply", "x-autorespond", "list-id", "list-unsubscribe"):
+    # List-Unsubscribe alone is not a signal: some providers (AgentMail included) add it to every message.
+    for h in ("x-autoreply", "x-autorespond", "list-id"):
         if h in lowered:
             return f"has {h}"
     if lowered.get("x-auto-response-suppress"):

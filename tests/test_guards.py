@@ -14,7 +14,8 @@ def test_robot_senders_are_ignored():
 def test_auto_submitted_headers():
     assert looks_automated("a@b.c", {"Auto-Submitted": "auto-replied"})
     assert looks_automated("a@b.c", {"Precedence": "bulk"})
-    assert looks_automated("a@b.c", {"List-Unsubscribe": "<mailto:x>"})
+    assert looks_automated("a@b.c", {"List-Id": "<news.example.com>"})
+    assert looks_automated("a@b.c", {"List-Unsubscribe": "<mailto:x>"}) is None
     assert looks_automated("a@b.c", {}, "Automatic reply: M12205")
     assert looks_automated("a@b.c", {}, "Out of Office")
     assert looks_automated("a@b.c", {"Auto-Submitted": "no"}) is None
