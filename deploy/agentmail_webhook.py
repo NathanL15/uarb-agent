@@ -4,7 +4,7 @@ AgentMail can attach custom headers to its webhook calls, so it can call
 GitHub's repository_dispatch endpoint directly: a new email becomes a workflow
 run within a minute, with no server in between.
 
-    AGENTMAIL_API_KEY=am_... GITHUB_TOKEN=github_pat_... python deploy/agentmail_webhook.py NathanL15/uarb-agent
+    python deploy/agentmail_webhook.py NathanL15/uarb-agent     # reads AGENTMAIL_API_KEY and GITHUB_TOKEN from .env
     python deploy/agentmail_webhook.py --list
     python deploy/agentmail_webhook.py --delete <webhook_id>
 
@@ -19,6 +19,9 @@ import os
 import sys
 
 import httpx
+from dotenv import load_dotenv
+
+load_dotenv()
 
 API = "https://api.agentmail.to/v0"
 
