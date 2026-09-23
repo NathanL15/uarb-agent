@@ -1,0 +1,10 @@
+name = "uarb-agent-relay"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+REPO = "NathanL15/uarb-agent"
+
+# secrets (set once, never in this file):
+#   npx wrangler secret put GITHUB_TOKEN
+#   npx wrangler secret put RELAY_SECRET
